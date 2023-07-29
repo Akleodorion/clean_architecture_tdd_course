@@ -20,7 +20,7 @@ dependencies:
   # Value equality
   equatable: ^2.0.5
   # Functional programming thingies
-  dartz: ^0.10.1
+  dartz: 0.10.1
   # Remote API
   connectivity_plus: ^4.0.1
   http: ^1.1.0
@@ -30,7 +30,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  mocktail : ^0.3.0
+  mockito: ^5.0.0
   build_runner: ^2.4.6
 
 
