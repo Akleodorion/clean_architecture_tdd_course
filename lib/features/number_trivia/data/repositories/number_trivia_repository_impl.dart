@@ -9,10 +9,11 @@ import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repo
 import 'package:dartz/dartz.dart';
 
 class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
-  const NumberTriviaRepositoryImpl(
-      {required this.networkInfo,
-      required this.localDataSource,
-      required this.remoteDataSource});
+  const NumberTriviaRepositoryImpl({
+    required this.networkInfo,
+    required this.localDataSource,
+    required this.remoteDataSource,
+  });
 
   final NetworkInfo networkInfo;
   final NumberTriviaLocalDataSource localDataSource;
@@ -42,8 +43,24 @@ class NumberTriviaRepositoryImpl implements NumberTriviaRepository {
   }
 
   @override
-  Future<Either<Failure, NumberTrivia>>? getRandomNumberTrivia() {
-    // TODO: implement getRandomNumberTrivia
-    return null;
+  Future<Either<Failure, NumberTrivia>>? getRandomNumberTrivia() async {
+    if (await networkInfo.isConnected) {
+      try {
+        final remoteRandomTrivia =
+            await remoteDataSource.getRandomNumberTrivia();
+        localDataSource.cacheNumberTrivia(NumberTriviaModel(
+            text: remoteRandomTrivia!.text, number: remoteRandomTrivia.number));
+        return Right(remoteRandomTrivia);
+      } on ServerException {
+        return Left(ServerFailure());
+      }
+    } else {
+      try {
+        final localNumberTrivia = await localDataSource.getLastNumberTrivia();
+        return Right(localNumberTrivia!);
+      } on CacheException {
+        return Left(CacheFailure());
+      }
+    }
   }
 }
