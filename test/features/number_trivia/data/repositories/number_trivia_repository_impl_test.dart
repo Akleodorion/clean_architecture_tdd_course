@@ -1,6 +1,6 @@
 import 'package:clean_architecture_tdd_course/core/error/exceptions.dart';
 import 'package:clean_architecture_tdd_course/core/error/failures.dart';
-import 'package:clean_architecture_tdd_course/core/platform/network_info.dart';
+import 'package:clean_architecture_tdd_course/core/network/network_info.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/data/datasources/number_trivia_local_data_source.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/data/datasources/number_trivia_remote_data_source.dart';
 import 'package:clean_architecture_tdd_course/features/number_trivia/data/models/number_trivia_model.dart';
@@ -17,11 +17,7 @@ import 'number_trivia_repository_impl_test.mocks.dart';
   NetworkInfo,
   NumberTriviaLocalDataSource,
   NumberTriviaRemoteDataSource,
-  NumberTriviaRepositoryImpl
 ])
-// @GenerateMocks([NumberTriviaLocalDataSource])
-// @GenerateMocks([NumberTriviaRemoteDataSource])
-// @GenerateMocks([NumberTriviaRepositoryImpl])
 void main() {
   late MockNumberTriviaLocalDataSource mockLocalDataSource;
   late MockNumberTriviaRemoteDataSource mockRemoteDataSource;
@@ -60,12 +56,14 @@ void main() {
         () async {
           // arrange
           _isOnline();
+          when(mockRemoteDataSource.getConcreteNumberTrivia(any))
+              .thenAnswer((_) async => tNumberTrivia);
 
           // act
-          repository.getConcreteNumberTrivia(tNumber);
+          await repository.getConcreteNumberTrivia(tNumber);
           // assert
 
-          verify(mockNetworkInfo.isConnected).called(1);
+          verify(mockNetworkInfo.isConnected);
         },
       );
 
@@ -167,11 +165,16 @@ void main() {
   group(
     "getRandomNumberTrivia",
     () {
+      final tNumberTrivia = NumberTrivia(text: 'test text', number: 1);
+      final tNumberTriviaModel =
+          NumberTriviaModel(text: 'test text', number: 1);
       test(
         "Should check is the devise is Online",
         () async {
           //assert
           when(mockNetworkInfo.isConnected).thenAnswer((_) async => false);
+          when(mockLocalDataSource.getLastNumberTrivia())
+              .thenAnswer((_) async => tNumberTriviaModel);
           //act
           await repository.getRandomNumberTrivia();
           //arrange
@@ -185,10 +188,6 @@ void main() {
           setUp(() {
             _isOnline();
           });
-
-          final tNumberTrivia = NumberTrivia(text: 'test text', number: 1);
-          final tNumberTriviaModel =
-              NumberTriviaModel(text: 'test text', number: 1);
 
           test(
             "should return a RandomNumberTriviaModel when the call to the api is successful",
@@ -269,6 +268,7 @@ void main() {
               final result = await repository.getRandomNumberTrivia();
               //arrange
               verify(mockLocalDataSource.getLastNumberTrivia()).called(1);
+              verifyZeroInteractions(mockRemoteDataSource);
               expect(result, Left(CacheFailure()));
             },
           );

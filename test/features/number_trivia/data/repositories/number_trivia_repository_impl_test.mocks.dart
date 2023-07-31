@@ -6,7 +6,7 @@
 import 'dart:async' as _i5;
 
 import 'package:clean_architecture_tdd_course/core/error/failures.dart' as _i10;
-import 'package:clean_architecture_tdd_course/core/platform/network_info.dart'
+import 'package:clean_architecture_tdd_course/core/network/network_info.dart'
     as _i2;
 import 'package:clean_architecture_tdd_course/features/number_trivia/data/datasources/number_trivia_local_data_source.dart'
     as _i3;
