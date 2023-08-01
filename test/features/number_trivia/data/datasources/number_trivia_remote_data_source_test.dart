@@ -124,10 +124,12 @@ void main() {
           //assert
           _randomServerBadResponse();
           //act
-          final result = dataSource.getRandomNumberTrivia();
+          final call = dataSource.getRandomNumberTrivia;
           //arrange
 
-          expect(result, throwsA(TypeMatcher<ServerException>()));
+          expect(() {
+            return call();
+          }, throwsA(TypeMatcher<ServerException>()));
         },
       );
     },
