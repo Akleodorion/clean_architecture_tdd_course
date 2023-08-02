@@ -3,22 +3,22 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i7;
+import 'dart:async' as _i4;
 
-import 'package:clean_architecture_tdd_course/core/error/failures.dart' as _i5;
+import 'package:clean_architecture_tdd_course/core/error/failures.dart' as _i6;
 import 'package:clean_architecture_tdd_course/core/usecases/usecase.dart'
-    as _i10;
+    as _i9;
 import 'package:clean_architecture_tdd_course/core/util/input_converter.dart'
-    as _i3;
+    as _i10;
 import 'package:clean_architecture_tdd_course/features/number_trivia/domain/entities/number_trivia.dart'
-    as _i8;
+    as _i7;
 import 'package:clean_architecture_tdd_course/features/number_trivia/domain/repositories/number_trivia_repository.dart'
     as _i2;
 import 'package:clean_architecture_tdd_course/features/number_trivia/domain/usecases/get_concrete_number_trivia.dart'
-    as _i6;
+    as _i3;
 import 'package:clean_architecture_tdd_course/features/number_trivia/domain/usecases/get_random_number_trivia.dart'
-    as _i9;
-import 'package:dartz/dartz.dart' as _i4;
+    as _i8;
+import 'package:dartz/dartz.dart' as _i5;
 import 'package:mockito/mockito.dart' as _i1;
 
 // ignore_for_file: type=lint
@@ -43,28 +43,11 @@ class _FakeNumberTriviaRepository_0 extends _i1.SmartFake
         );
 }
 
-/// A class which mocks [InputConverterImpl].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockInputConverterImpl extends _i1.Mock
-    implements _i3.InputConverterImpl {
-  MockInputConverterImpl() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i4.Either<_i5.Failure, int>? stringToUnsignedInteger(String? str) =>
-      (super.noSuchMethod(Invocation.method(
-        #stringToUnsignedInteger,
-        [str],
-      )) as _i4.Either<_i5.Failure, int>?);
-}
-
 /// A class which mocks [GetConcreteNumberTrivia].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetConcreteNumberTrivia extends _i1.Mock
-    implements _i6.GetConcreteNumberTrivia {
+    implements _i3.GetConcreteNumberTrivia {
   MockGetConcreteNumberTrivia() {
     _i1.throwOnMissingStub(this);
   }
@@ -78,23 +61,23 @@ class MockGetConcreteNumberTrivia extends _i1.Mock
         ),
       ) as _i2.NumberTriviaRepository);
   @override
-  _i7.Future<_i4.Either<_i5.Failure, _i8.NumberTrivia>?> call(
-          _i6.Params? params) =>
+  _i4.Future<_i5.Either<_i6.Failure, _i7.NumberTrivia>?> call(
+          _i3.Params? params) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [params],
         ),
         returnValue:
-            _i7.Future<_i4.Either<_i5.Failure, _i8.NumberTrivia>?>.value(),
-      ) as _i7.Future<_i4.Either<_i5.Failure, _i8.NumberTrivia>?>);
+            _i4.Future<_i5.Either<_i6.Failure, _i7.NumberTrivia>?>.value(),
+      ) as _i4.Future<_i5.Either<_i6.Failure, _i7.NumberTrivia>?>);
 }
 
 /// A class which mocks [GetRandomNumberTrivia].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetRandomNumberTrivia extends _i1.Mock
-    implements _i9.GetRandomNumberTrivia {
+    implements _i8.GetRandomNumberTrivia {
   MockGetRandomNumberTrivia() {
     _i1.throwOnMissingStub(this);
   }
@@ -108,14 +91,31 @@ class MockGetRandomNumberTrivia extends _i1.Mock
         ),
       ) as _i2.NumberTriviaRepository);
   @override
-  _i7.Future<_i4.Either<_i5.Failure, _i8.NumberTrivia>?> call(
-          _i10.NoParams? noParams) =>
+  _i4.Future<_i5.Either<_i6.Failure, _i7.NumberTrivia>?> call(
+          _i9.NoParams? noParams) =>
       (super.noSuchMethod(
         Invocation.method(
           #call,
           [noParams],
         ),
         returnValue:
-            _i7.Future<_i4.Either<_i5.Failure, _i8.NumberTrivia>?>.value(),
-      ) as _i7.Future<_i4.Either<_i5.Failure, _i8.NumberTrivia>?>);
+            _i4.Future<_i5.Either<_i6.Failure, _i7.NumberTrivia>?>.value(),
+      ) as _i4.Future<_i5.Either<_i6.Failure, _i7.NumberTrivia>?>);
+}
+
+/// A class which mocks [InputConverterImpl].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockInputConverterImpl extends _i1.Mock
+    implements _i10.InputConverterImpl {
+  MockInputConverterImpl() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i5.Either<_i6.Failure, int>? stringToUnsignedInteger(String? str) =>
+      (super.noSuchMethod(Invocation.method(
+        #stringToUnsignedInteger,
+        [str],
+      )) as _i5.Either<_i6.Failure, int>?);
 }
