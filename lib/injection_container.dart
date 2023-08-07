@@ -12,7 +12,7 @@ import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-final sl = GetIt.instance;
+GetIt sl = GetIt.instance;
 
 Future<void> init() async {
   //! Initialisation de la feature
@@ -27,19 +27,17 @@ Future<void> init() async {
 
   // Usecase
 
-  sl.registerLazySingleton(
-    () => GetConcreteNumberTrivia(sl()),
-  );
-
-  sl.registerLazySingleton(
-    () => GetRandomNumberTrivia(sl()),
-  );
+  sl.registerLazySingleton(() => GetConcreteNumberTrivia(sl()));
+  sl.registerLazySingleton(() => GetRandomNumberTrivia(sl()));
 
   // repository
 
-  sl.registerLazySingleton<NumberTriviaRepository>(() =>
-      NumberTriviaRepositoryImpl(
-          networkInfo: sl(), localDataSource: sl(), remoteDataSource: sl()));
+  sl.registerLazySingleton<NumberTriviaRepository>(
+      () => NumberTriviaRepositoryImpl(
+            networkInfo: sl(),
+            localDataSource: sl(),
+            remoteDataSource: sl(),
+          ));
 
   // Data Sources
   sl.registerLazySingleton<NumberTriviaLocalDataSource>(
